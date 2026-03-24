@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games | Vaibhav Anand</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .games-container {
+            padding-top: 100px;
+        }
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .game-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 400px;
+        }
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-base);
+        }
+        
+        /* Tic Tac Toe */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--accent-base);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .cell:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Snake Game */
+        canvas {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent-base);
+            border-radius: var(--radius-md);
+            margin: 20px auto;
+            display: block;
+        }
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .game-controls {
+            margin-top: 15px;
+        }
+        .game-instructions {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            max-width: 300px;
+        }
+        .mole-hole {
+            width: 70px;
+            height: 70px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.05);
+            transition: background 0.1s;
+        }
+        .mole-hole.active {
+            background: #ef4444;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" class="text-gradient">livingvaibhavly.in</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="resume.html">Resume</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="games.html" class="active">Games</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="games-container container">
+        <h1 class="page-title reveal text-gradient">Quick Games</h1>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 4rem;">Take a break and test your skills!</p>
+        
+        <div class="grid grid-3" style="margin-bottom: 6rem;">
+            
+            <!-- Tic Tac Toe Game -->
+            <div class="game-card reveal delay-1">
+                <h3 class="game-title"><i class="fas fa-times"></i> Tic Tac Toe <i class="far fa-circle"></i></h3>
+                <div class="score-display" id="ttt-status">Your Turn (X)</div>
+                <div class="board" id="board">
+                    <div class="cell" onclick="makeMove(0)"></div>
+                    <div class="cell" onclick="makeMove(1)"></div>
+                    <div class="cell" onclick="makeMove(2)"></div>
+                    <div class="cell" onclick="makeMove(3)"></div>
+                    <div class="cell" onclick="makeMove(4)"></div>
+                    <div class="cell" onclick="makeMove(5)"></div>
+                    <div class="cell" onclick="makeMove(6)"></div>
+                    <div class="cell" onclick="makeMove(7)"></div>
+                    <div class="cell" onclick="makeMove(8)"></div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn btn-primary" onclick="resetTTT()">Restart Game</button>
+                </div>
+            </div>
+
+            <!-- Snake Game -->
+            <div class="game-card reveal delay-2">
+                <h3 class="game-title"><i class="fas fa-snake"></i> Classic Snake</h3>
+                <div class="score-display">Score: <span id="snake-score">0</span></div>
+                <canvas id="snakeCanvas" width="300" height="300"></canvas>
+                <div class="game-controls">
+                    <button class="btn btn-outline" id="startSnakeBtn">Start Game</button>
+                </div>
+                <p class="game-instructions">Use Arrow Keys to move. Eat the red apples to grow!</p>
+            </div>
+
+            <!-- Space Invaders Game -->
+            <div class="game-card reveal delay-3">
+                <h3 class="game-title"><i class="fas fa-space-shuttle"></i> Space Invaders</h3>
+                <div class="score-display">Score: <span id="si-score">0</span></div>
+                <canvas id="siCanvas" width="300" height="300"></canvas>
+                <div class="game-controls">
+                    <button class="btn btn-outline" id="startSiBtn">Start Game</button>
+                </div>
+                <p class="game-instructions">Left/Right arrows to move. Space to shoot.</p>
+            </div>
+
+            <!-- Memory Match Game -->
+            <div class="game-card reveal delay-1">
+                <h3 class="game-title"><i class="fas fa-brain"></i> Memory Match</h3>
+                <div class="score-display">Moves: <span id="memory-moves">0</span></div>
+                <div class="board" id="memory-board" style="grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 10px auto;">
+                    <!-- Cards gen by JS -->
+                </div>
+                <div class="game-controls">
+                    <button class="btn btn-outline" id="startMemoryBtn">Restart Game</button>
+                </div>
+            </div>
+
+            <!-- Whack-a-Mole Game -->
+            <div class="game-card reveal delay-2">
+                <h3 class="game-title"><i class="fas fa-hammer"></i> Whack-A-Mole</h3>
+                <div class="score-display">Score: <span id="mole-score">0</span> | Time: <span id="mole-time">30</span></div >
+                <div class="board" id="mole-board" style="grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px auto;">
+                    <div class="mole-hole" id="hole-0"></div>
+                    <div class="mole-hole" id="hole-1"></div>
+                    <div class="mole-hole" id="hole-2"></div>
+                    <div class="mole-hole" id="hole-3"></div>
+                    <div class="mole-hole" id="hole-4"></div>
+                    <div class="mole-hole" id="hole-5"></div>
+                    <div class="mole-hole" id="hole-6"></div>
+                    <div class="mole-hole" id="hole-7"></div>
+                    <div class="mole-hole" id="hole-8"></div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn btn-outline" id="startMoleBtn">Start Game</button>
+                </div>
+            </div>
+
+            <!-- Flappy Block Game -->
+            <div class="game-card reveal delay-3">
+                <h3 class="game-title"><i class="fas fa-crow"></i> Flappy Block</h3>
+                <div class="score-display">Score: <span id="flappy-score">0</span></div>
+                <canvas id="flappyCanvas" width="300" height="300"></canvas>
+                <div class="game-controls">
+                    <button class="btn btn-outline" id="startFlappyBtn">Start Game</button>
+                </div>
+                <p class="game-instructions">Click or Space to jump avoiding pipes.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 class="text-gradient" style="margin-bottom: 0.5rem;">Vaibhav Anand</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">Aspiring Data Analyst</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:vaibhavkumaranand729@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.8rem;">&copy; 2024 Vaibhav Anand. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Tic Tac Toe Logic
+        let tttBoard = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let gameActive = true;
+        const statusDisplay = document.querySelector('#ttt-status');
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        function makeMove(cellIndex) {
+            if (tttBoard[cellIndex] !== '' || !gameActive) return;
+            
+            tttBoard[cellIndex] = currentPlayer;
+            document.querySelectorAll('.cell')[cellIndex].innerHTML = currentPlayer;
+            document.querySelectorAll('.cell')[cellIndex].style.color = currentPlayer === 'X' ? '#3b82f6' : '#8b5cf6';
+            
+            checkTTTWin();
+        }
+
+        function checkTTTWin() {
+            let roundWon = false;
+            for (let i = 0; i <= 7; i++) {
+                const winCondition = winningConditions[i];
+                let a = tttBoard[winCondition[0]];
+                let b = tttBoard[winCondition[1]];
+                let c = tttBoard[winCondition[2]];
+                if (a === '' || b === '' || c === '') continue;
+                if (a === b && b === c) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusDisplay.innerHTML = `Player ${currentPlayer} Wins!`;
+                statusDisplay.style.color = '#14b8a6';
+                gameActive = false;
+                return;
+            }
+
+            let roundDraw = !tttBoard.includes('');
+            if (roundDraw) {
+                statusDisplay.innerHTML = 'Draw!';
+                statusDisplay.style.color = '#94a3b8';
+                gameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDisplay.innerHTML = `Player ${currentPlayer}'s Turn`;
+            
+            // AI Move if it's O's turn (simple random AI for demo)
+            if(currentPlayer === 'O' && gameActive) {
+                setTimeout(makeAIMove, 500);
+            }
+        }
+        
+        function makeAIMove() {
+            let availableSlots = [];
+            for(let i=0; i<tttBoard.length; i++) {
+                if(tttBoard[i] === '') availableSlots.push(i);
+            }
+            if(availableSlots.length > 0) {
+                let randomSlot = availableSlots[Math.floor(Math.random() * availableSlots.length)];
+                makeMove(randomSlot);
+            }
+        }
+
+        function resetTTT() {
+            currentPlayer = 'X';
+            tttBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            statusDisplay.innerHTML = `Your Turn (X)`;
+            statusDisplay.style.color = '';
+            document.querySelectorAll('.cell').forEach(cell => {
+                cell.innerHTML = '';
+            });
+        }
+
+
+        // Snake Game Logic
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+        const box = 15;
+        let snake = [];
+        let food;
+        let d;
+        let snakeScore = 0;
+        let game;
+        let isGameRunning = false;
+
+        function initSnake() {
+            snake = [];
+            snake[0] = { x: 10 * box, y: 10 * box };
+            randomFood();
+            d = "RIGHT";
+            snakeScore = 0;
+            document.getElementById('snake-score').innerText = snakeScore;
+        }
+
+        function randomFood() {
+            food = {
+                x: Math.floor(Math.random() * 19 + 1) * box,
+                y: Math.floor(Math.random() * 19 + 1) * box
+            };
+            // Ensure food doesn't spawn on snake
+            for(let i=0; i<snake.length; i++){
+                if(food.x === snake[i].x && food.y === snake[i].y){
+                    randomFood();
+                }
+            }
+        }
+
+        document.addEventListener("keydown", direction);
+
+        function direction(event) {
+            let key = event.keyCode;
+            // Prevent default scrolling for arrow keys
+            if([37, 38, 39, 40].indexOf(key) > -1 && isGameRunning) {
+                event.preventDefault();
+            }
+            
+            if (key == 37 && d != "RIGHT") { d = "LEFT"; }
+            else if (key == 38 && d != "DOWN") { d = "UP"; }
+            else if (key == 39 && d != "LEFT") { d = "RIGHT"; }
+            else if (key == 40 && d != "UP") { d = "DOWN"; }
+        }
+
+        function drawSnake() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Context background is handled by CSS, we just clear properly
+            
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? "#3b82f6" : "#8b5cf6"; // Head is blue, body is purple
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                ctx.strokeStyle = "#0f172a";
+                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            ctx.fillStyle = "#ef4444"; // Red apple
+            ctx.beginPath();
+            ctx.arc(food.x + box/2, food.y + box/2, box/2 - 1, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // old head position
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (d == "LEFT") snakeX -= box;
+            if (d == "UP") snakeY -= box;
+            if (d == "RIGHT") snakeX += box;
+            if (d == "DOWN") snakeY += box;
+
+            if (snakeX == food.x && snakeY == food.y) {
+                snakeScore++;
+                document.getElementById('snake-score').innerText = snakeScore;
+                randomFood();
+            } else {
+                snake.pop(); // remove tail
+            }
+
+            // new head
+            let newHead = { x: snakeX, y: snakeY };
+
+            // Game over rules
+            if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+                clearInterval(game);
+                isGameRunning = false;
+                document.getElementById('startSnakeBtn').innerText = "Game Over! Play Again";
+                document.getElementById('startSnakeBtn').style.display = 'inline-block';
+            } else {
+                snake.unshift(newHead); // add new head
+            }
+        }
+
+        function collision(head, array) {
+            for (let i = 0; i < array.length; i++) {
+                if (head.x == array[i].x && head.y == array[i].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        document.getElementById('startSnakeBtn').addEventListener('click', () => {
+            initSnake();
+            document.getElementById('startSnakeBtn').style.display = 'none';
+            if(game) clearInterval(game);
+            isGameRunning = true;
+            game = setInterval(drawSnake, 120);
+        });
+
+        // Initialize drawing once so canvas isn't empty
+        initSnake();
+        drawSnake(); // just draw initial state
+
+        // Space Invaders Logic
+        const siCanvas = document.getElementById('siCanvas');
+        const siCtx = siCanvas.getContext('2d');
+        let siGame;
+        let isSiRunning = false;
+        let pX = 135, pY = 270, pW = 30, pH = 20;
+        let bullets = [];
+        let enemies = [];
+        let siScore = 0;
+        let keys = {};
+        let enemyDir = 1;
+        
+        function initSi() {
+            pX = 135; bullets = []; enemies = []; siScore = 0; enemyDir = 1;
+            document.getElementById('si-score').innerText = siScore;
+            // Create enemies
+            for(let r=0; r<4; r++) {
+                for(let c=0; c<6; c++) {
+                    enemies.push({x: 20 + c*45, y: 20 + r*35, w: 25, h: 15, alive: true});
+                }
+            }
+        }
+        
+        document.addEventListener('keydown', e => {
+            keys[e.code] = true;
+            if(isSiRunning && e.code === 'Space') {
+                e.preventDefault();
+                // Prevent holding down space for machine gun
+                if(bullets.length < 3) {
+                    bullets.push({x: pX + pW/2 - 2, y: pY, w: 4, h: 10});
+                }
+            }
+            if(isSiRunning && (e.code === 'ArrowLeft' || e.code === 'ArrowRight')) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('keyup', e => keys[e.code] = false);
+        
+        function updateSi() {
+            // Player move
+            if((keys['ArrowLeft'] || keys['KeyA']) && pX > 0) pX -= 5;
+            if((keys['ArrowRight'] || keys['KeyD']) && pX < 300 - pW) pX += 5;
+            
+            // Bullets move
+            bullets.forEach((b, i) => {
+                b.y -= 7;
+                if(b.y < -10) bullets.splice(i, 1);
+            });
+            
+            // Enemies move
+            let hitEdge = false;
+            enemies.forEach(e => {
+                if(!e.alive) return;
+                e.x += 1 * enemyDir;
+                if(e.x <= 0 || e.x + e.w >= 300) hitEdge = true;
+            });
+            if(hitEdge) {
+                enemyDir *= -1;
+                enemies.forEach(e => { if(e.alive) e.y += 15; });
+            }
+            
+            // Collision
+            bullets.forEach((b, bi) => {
+                enemies.forEach((e, ei) => {
+                    if(e.alive && b.x < e.x + e.w && b.x + b.w > e.x && b.y < e.y + e.h && b.y + b.h > e.y) {
+                        e.alive = false;
+                        bullets.splice(bi, 1);
+                        siScore += 10;
+                        document.getElementById('si-score').innerText = siScore;
+                    }
+                });
+            });
+            
+            // Win condition (respawn faster enemies if all dead)
+            if(!enemies.some(e => e.alive)) {
+                initSi();
+            }
+            
+            // Lose condition
+            if(enemies.some(e => e.alive && e.y + e.h >= pY)) {
+                endSiGame();
+            }
+        }
+        
+        function drawSi() {
+            // Context background is CSS but clearing with a slight tint gives contrast
+            siCtx.clearRect(0, 0, 300, 300);
+            
+            // Draw Player
+            siCtx.fillStyle = '#14b8a6';
+            siCtx.fillRect(pX, pY, pW, pH);
+            siCtx.fillRect(pX + 10, pY - 10, 10, 10); // turret
+            
+            // Draw Bullets
+            siCtx.fillStyle = '#f59e0b';
+            bullets.forEach(b => siCtx.fillRect(b.x, b.y, b.w, b.h));
+            
+            // Draw Enemies
+            siCtx.fillStyle = '#ef4444';
+            enemies.forEach(e => {
+                if(e.alive) {
+                    siCtx.fillRect(e.x, e.y, e.w, e.h);
+                    // simple alien eyes
+                    siCtx.fillStyle = '#0f172a';
+                    siCtx.fillRect(e.x + 4, e.y + 4, 4, 4);
+                    siCtx.fillRect(e.x + 16, e.y + 4, 4, 4);
+                    siCtx.fillStyle = '#ef4444';
+                }
+            });
+        }
+        
+        function siLoop() {
+            if(!isSiRunning) return;
+            updateSi();
+            drawSi();
+            requestAnimationFrame(siLoop);
+        }
+        
+        function endSiGame() {
+            isSiRunning = false;
+            document.getElementById('startSiBtn').innerText = "Game Over! Play Again";
+            document.getElementById('startSiBtn').style.display = 'inline-block';
+        }
+        
+        document.getElementById('startSiBtn').addEventListener('click', () => {
+            initSi();
+            document.getElementById('startSiBtn').style.display = 'none';
+            isSiRunning = true;
+            siLoop();
+        });
+        
+        // Initial draw for Space Invaders
+        initSi();
+        drawSi();
+
+        // ------------------ Memory Match Logic ------------------
+        const memoryEmojis = ['🚀', '🚀', '🌟', '🌟', '🎮', '🎮', '👾', '👾', '🔥', '🔥', '💎', '💎', '🎯', '🎯', '🎲', '🎲'];
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let memoryMoves = 0;
+        let isMemoryLocked = false;
+        
+        function initMemory() {
+            const board = document.getElementById('memory-board');
+            board.innerHTML = '';
+            memoryCards = memoryEmojis.sort(() => 0.5 - Math.random());
+            flippedCards = [];
+            matchedPairs = 0;
+            memoryMoves = 0;
+            isMemoryLocked = false;
+            document.getElementById('memory-moves').innerText = memoryMoves;
+            
+            memoryCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'cell memory-card';
+                card.style.width = '60px';
+                card.style.height = '60px';
+                card.style.fontSize = '1.8rem';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.addEventListener('click', flipCard);
+                board.appendChild(card);
+            });
+        }
+        
+        function flipCard() {
+            if(isMemoryLocked) return;
+            if(this.classList.contains('flipped') || this.classList.contains('matched')) return;
+            
+            this.innerHTML = this.dataset.emoji;
+            this.classList.add('flipped');
+            this.style.background = 'rgba(59, 130, 246, 0.2)';
+            flippedCards.push(this);
+            
+            if(flippedCards.length === 2) {
+                memoryMoves++;
+                document.getElementById('memory-moves').innerText = memoryMoves;
+                checkForMatch();
+            }
+        }
+        
+        function checkForMatch() {
+            let isMatch = flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji;
+            isMatch ? disableCards() : unflipCards();
+        }
+        
+        function disableCards() {
+            flippedCards[0].classList.add('matched');
+            flippedCards[1].classList.add('matched');
+            flippedCards[0].style.border = '2px solid #14b8a6';
+            flippedCards[1].style.border = '2px solid #14b8a6';
+            matchedPairs++;
+            flippedCards = [];
+            if(matchedPairs === 8) {
+                setTimeout(() => alert('You Won Memory Match! Moves: ' + memoryMoves), 500);
+            }
+        }
+        
+        function unflipCards() {
+            isMemoryLocked = true;
+            setTimeout(() => {
+                flippedCards[0].innerHTML = '';
+                flippedCards[1].innerHTML = '';
+                flippedCards[0].style.background = 'rgba(255,255,255,0.05)';
+                flippedCards[1].style.background = 'rgba(255,255,255,0.05)';
+                flippedCards[0].classList.remove('flipped');
+                flippedCards[1].classList.remove('flipped');
+                flippedCards = [];
+                isMemoryLocked = false;
+            }, 1000);
+        }
+        
+        document.getElementById('startMemoryBtn').addEventListener('click', initMemory);
+        initMemory();
+
+        // ------------------ Whack-A-Mole Logic ------------------
+        let moleHoles = document.querySelectorAll('.mole-hole');
+        let moleScore = 0;
+        let moleTime = 30;
+        let activeMoleTimer;
+        let moleCountdownTimer;
+        let isMoleRunning = false;
+        
+        function randomHole() {
+            moleHoles.forEach(h => {
+                h.classList.remove('active');
+                h.innerHTML = '';
+            });
+            if(!isMoleRunning) return;
+            let idx = Math.floor(Math.random() * 9);
+            moleHoles[idx].classList.add('active');
+            moleHoles[idx].innerHTML = '🐹';
+            
+            let time = Math.random() * 600 + 400; // 400ms to 1s
+            activeMoleTimer = setTimeout(randomHole, time);
+        }
+        
+        moleHoles.forEach(hole => {
+            hole.addEventListener('mousedown', () => {
+                if(hole.classList.contains('active')) {
+                    moleScore++;
+                    document.getElementById('mole-score').innerText = moleScore;
+                    hole.classList.remove('active');
+                    hole.innerHTML = '💥';
+                    setTimeout(() => hole.innerHTML = '', 300);
+                }
+            });
+        });
+        
+        function startMole() {
+            if(isMoleRunning) return;
+            moleScore = 0;
+            moleTime = 30;
+            isMoleRunning = true;
+            document.getElementById('mole-score').innerText = moleScore;
+            document.getElementById('mole-time').innerText = moleTime;
+            document.getElementById('startMoleBtn').style.display = 'none';
+            
+            randomHole();
+            
+            moleCountdownTimer = setInterval(() => {
+                moleTime--;
+                document.getElementById('mole-time').innerText = moleTime;
+                if(moleTime <= 0) {
+                    clearInterval(moleCountdownTimer);
+                    clearTimeout(activeMoleTimer);
+                    isMoleRunning = false;
+                    moleHoles.forEach(h => { h.classList.remove('active'); h.innerHTML = ''; });
+                    document.getElementById('startMoleBtn').innerText = 'Play Again';
+                    document.getElementById('startMoleBtn').style.display = 'inline-block';
+                }
+            }, 1000);
+        }
+        
+        document.getElementById('startMoleBtn').addEventListener('click', startMole);
+
+        // ------------------ Flappy Block Logic ------------------
+        const fCanvas = document.getElementById('flappyCanvas');
+        const fCtx = fCanvas.getContext('2d');
+        let fGame;
+        let isFRunning = false;
+        let bY = 150, bV = 0, gravity = 1, jump = -10;
+        let pipes = [];
+        let fScore = 0;
+        let fFrame = 0;
+        let fCountdown = 0;
+        
+        function initFlappy() {
+            bY = 150; bV = 0; pipes = []; fScore = 0; fFrame = 0; fCountdown = 0;
+            document.getElementById('flappy-score').innerText = fScore;
+        }
+        
+        function jumpFlappy() {
+            if(isFRunning) bV = jump;
+        }
+        
+        document.addEventListener('keydown', e => {
+            if(isFRunning && e.code === 'Space') {
+                e.preventDefault();
+                jumpFlappy();
+            }
+        });
+        fCanvas.addEventListener('mousedown', jumpFlappy);
+        
+        function updateFlappy() {
+            bV += gravity;
+            bY += bV;
+            
+            if(fFrame % 75 === 0) {
+                let pHeight = Math.floor(Math.random() * 150) + 20;
+                let gap = 100;
+                pipes.push({x: 300, y: 0, w: 40, h: pHeight}); // top pipe
+                pipes.push({x: 300, y: pHeight + gap, w: 40, h: 300 - pHeight - gap, passed: false}); // bot pipe
+            }
+            
+            pipes.forEach((p, i) => {
+                p.x -= 3;
+                if(p.x + p.w < 0) {
+                    pipes.splice(i, 1);
+                }
+                
+                // collision
+                if( bY < p.y + p.h && bY + 20 > p.y && 50 < p.x + p.w && 50 + 20 > p.x ) {
+                    endFlappy();
+                }
+                
+                // score
+                if(p.y !== 0 && !p.passed && p.x + p.w < 50) {
+                    p.passed = true;
+                    fScore++;
+                    document.getElementById('flappy-score').innerText = fScore;
+                }
+            });
+            
+            // ground or sky collision
+            if(bY + 20 >= 300 || bY <= 0) {
+                endFlappy();
+            }
+            
+            fFrame++;
+        }
+        
+        function drawFlappy() {
+            fCtx.clearRect(0,0,300,300);
+            fCtx.fillStyle = '#1e293b';
+            fCtx.fillRect(0,0,300,300);
+            
+            // Bird
+            fCtx.fillStyle = '#eab308';
+            fCtx.fillRect(50, bY, 20, 20);
+            fCtx.fillStyle = '#fff'; // eye
+            fCtx.fillRect(60, bY+4, 6, 6);
+            fCtx.fillStyle = '#0f172a'; // pupil
+            fCtx.fillRect(63, bY+6, 2, 2);
+            
+            // Pipes
+            fCtx.fillStyle = '#22c55e';
+            pipes.forEach(p => { fCtx.fillRect(p.x, p.y, p.w, p.h); });
+
+            // Countdown Timer Overlay
+            if(fCountdown > 0) {
+                fCtx.fillStyle = 'rgba(0,0,0,0.5)';
+                fCtx.fillRect(0, 0, 300, 300);
+                fCtx.fillStyle = '#fff';
+                fCtx.font = 'bold 60px Inter, sans-serif';
+                fCtx.textAlign = 'center';
+                fCtx.textBaseline = 'middle';
+                fCtx.fillText(fCountdown, 150, 150);
+            }
+        }
+        
+        function fLoop() {
+            if(!isFRunning) return;
+            updateFlappy();
+            drawFlappy();
+            requestAnimationFrame(fLoop);
+        }
+        
+        function endFlappy() {
+            isFRunning = false;
+            document.getElementById('startFlappyBtn').innerText = "Game Over! Play Again";
+            document.getElementById('startFlappyBtn').style.display = 'inline-block';
+        }
+        
+        document.getElementById('startFlappyBtn').addEventListener('click', () => {
+            initFlappy();
+            document.getElementById('startFlappyBtn').style.display = 'none';
+            fCountdown = 3;
+            drawFlappy();
+            
+            let countTimer = setInterval(() => {
+                fCountdown--;
+                if(fCountdown <= 0) {
+                    clearInterval(countTimer);
+                    isFRunning = true;
+                    jumpFlappy(); // Little hop to prep player!
+                    fLoop();
+                } else {
+                    drawFlappy();
+                }
+            }, 1000);
+        });
+        
+        initFlappy();
+        drawFlappy();
+
+    </script>
+</body>
+</html>

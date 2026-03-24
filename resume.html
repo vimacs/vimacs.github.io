@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Vaibhav Anand</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-top: 100px; /* Offset for fixed header */
+        }
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            border-bottom: 2px solid var(--accent-base);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+        .resume-section {
+            margin-bottom: 4rem;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            border-left: 2px solid rgba(255,255,255,0.1);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-base);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .item-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .item-subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent-base);
+        }
+        .item-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .skill-group {
+            margin-bottom: 1.5rem;
+        }
+        .skill-group h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .skill-tag {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all var(--transition-normal);
+        }
+        .skill-tag:hover {
+            background: var(--accent-glow);
+            border-color: var(--accent-base);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .item-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" class="text-gradient">livingvaibhavly.in</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="resume.html" class="active">Resume</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="games.html">Games</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="resume-container container">
+        <h1 class="page-title reveal text-gradient" style="margin-top: 2rem;">Resume</h1>
+        
+        <!-- Professional Summary -->
+        <section class="resume-section reveal delay-1">
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="glass-card">
+                <p style="font-size: 1.05rem; line-height: 1.8;">
+                    Aspiring Data Analyst skilled in Python, SQL, and Power BI, with hands-on project experience in dashboards and machine learning. Seeking to leverage data visualization and analytical skills to deliver business insights in a data-driven organization.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="resume-section reveal delay-2">
+            <h2 class="section-title">Skills</h2>
+            <div class="glass-card grid grid-2" style="gap: 2rem;">
+                <div class="skill-group">
+                    <h4>Programming & Data</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Apps Scripts</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h4>Visualization & BI</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Google Sheets</span>
+                    </div>
+                </div>
+                <div class="skill-group" style="grid-column: 1 / -1;">
+                    <h4>Data Science</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Data Wrangling</span>
+                        <span class="skill-tag">Data Cleaning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="resume-section reveal delay-3">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div>
+                        <h3 class="item-title">B.Tech Computer Science and Engineering</h3>
+                        <p class="item-subtitle">Maharaja Agrasen Institute of Technology</p>
+                        <p style="color: var(--text-secondary); margin-top: 0.2rem;">Rohini, Delhi, India</p>
+                    </div>
+                    <span class="item-date">Dec 2020 - Dec 2024</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <p><strong>GPA:</strong> 8.07</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training & Certification -->
+        <section class="resume-section reveal">
+            <h2 class="section-title">Training & Certifications</h2>
+            
+            <div class="timeline-item">
+                <div class="item-header">
+                    <h3 class="item-title">Python for Data Science</h3>
+                    <span class="item-date">NPTEL</span>
+                </div>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    Applied Python, Pandas, and Matplotlib to analyze and visualize real-world datasets.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="item-header">
+                    <h3 class="item-title">Power BI</h3>
+                    <span class="item-date">Simplilearn</span>
+                </div>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    Applied DAX and data modeling to create interactive dashboards from business datasets.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="item-header">
+                    <h3 class="item-title">SQL Using MySQL and Database Design</h3>
+                    <span class="item-date">Scaler</span>
+                </div>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    Applied SQL queries, joins, and window functions to extract insights from sample databases.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="item-header">
+                    <h3 class="item-title">Apps Scripts</h3>
+                    <span class="item-date">Simplilearn</span>
+                </div>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    Automated repetitive Google Sheets tasks using Apps Script to improve reporting efficiency.
+                </p>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin-bottom: 6rem;" class="reveal">
+            <a href="projects.html" class="btn btn-primary">Check Out My Projects <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i></a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 class="text-gradient" style="margin-bottom: 0.5rem;">Vaibhav Anand</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">Aspiring Data Analyst</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:vaibhavkumaranand729@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.8rem;">&copy; 2024 Vaibhav Anand. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

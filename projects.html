@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Vaibhav Anand</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .projects-container {
+            padding-top: 100px;
+        }
+        .page-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .project-icon {
+            font-size: 2.5rem;
+            color: var(--accent-base);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 1rem;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .project-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--accent-base);
+            letter-spacing: 0.5px;
+        }
+        .project-bullets {
+            flex-grow: 1;
+        }
+        .project-bullets ul {
+            padding-left: 1.5rem;
+        }
+        .project-bullets li {
+            position: relative;
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            padding-left: 0.5rem;
+        }
+        .project-bullets li::before {
+            content: '•';
+            position: absolute;
+            left: -1rem;
+            color: var(--accent-base);
+            font-weight: bold;
+        }
+        .project-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .project-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-link i {
+            transition: transform 0.3s;
+        }
+        .project-link:hover i {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="index.html" class="text-gradient">livingvaibhavly.in</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="resume.html">Resume</a>
+                    <a href="projects.html" class="active">Projects</a>
+                    <a href="games.html">Games</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="projects-container container">
+        <h1 class="page-title reveal text-gradient">Featured Projects</h1>
+        
+        <div class="grid grid-3" style="margin-bottom: 6rem;">
+            
+            <!-- Project 1 -->
+            <div class="glass-card project-card reveal delay-1">
+                <div>
+                    <i class="fas fa-gavel project-icon"></i>
+                    <h3 class="project-title">Auction Dashboard Using Google Sheets and Apps Scripts</h3>
+                    <div class="project-tags">
+                        <span class="project-tag">Apps Script</span>
+                        <span class="project-tag">Google Sheets</span>
+                        <span class="project-tag">Automation</span>
+                    </div>
+                </div>
+                <div class="project-bullets">
+                    <ul>
+                        <li>Automated auction tracking system using Apps Script to reduce manual work.</li>
+                        <li>Built dynamic dashboards in Google Sheets to track bids, prices, and participants.</li>
+                        <li>Improved efficiency of reporting by 30%.</li>
+                    </ul>
+                </div>
+                <div class="project-footer">
+                    <!-- <a href="#" class="project-link">View Details <i class="fas fa-arrow-right"></i></a> -->
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="glass-card project-card reveal delay-2">
+                <div>
+                    <i class="fas fa-chart-pie project-icon" style="color: #8b5cf6; background: rgba(139, 92, 246, 0.1);"></i>
+                    <h3 class="project-title">HR Analytics Dashboard Using Power BI</h3>
+                    <div class="project-tags">
+                        <span class="project-tag" style="color: #8b5cf6;">Power BI</span>
+                        <span class="project-tag" style="color: #8b5cf6;">Data Cleaning</span>
+                        <span class="project-tag" style="color: #8b5cf6;">DAX</span>
+                    </div>
+                </div>
+                <div class="project-bullets">
+                    <ul>
+                        <li>Cleaned and transformed HR dataset (1,000+ records) to analyze employee attrition and demographics.</li>
+                        <li>Designed interactive dashboards with KPIs (attrition by department, job roles, fields of education, gender).</li>
+                        <li>Helped simulate data-driven HR decision-making scenarios.</li>
+                        <li>Reduced HR reporting time by 25%.</li>
+                    </ul>
+                </div>
+                <div class="project-footer">
+                    <!-- <a href="#" class="project-link" style="color: #8b5cf6;">View Dashboard <i class="fas fa-arrow-right"></i></a> -->
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="glass-card project-card reveal delay-3">
+                <div>
+                    <i class="fas fa-seedling project-icon" style="color: #14b8a6; background: rgba(20, 184, 166, 0.1);"></i>
+                    <h3 class="project-title">Suitable Crop Recommendation System</h3>
+                    <div class="project-tags">
+                        <span class="project-tag" style="color: #14b8a6;">Machine Learning</span>
+                        <span class="project-tag" style="color: #14b8a6;">Python</span>
+                        <span class="project-tag" style="color: #14b8a6;">Classification</span>
+                    </div>
+                </div>
+                <div class="project-bullets">
+                    <ul>
+                        <li>Implemented ML model to recommend optimal crops based on soil and environmental conditions.</li>
+                        <li>Preprocessed raw agricultural data and applied classification algorithms.</li>
+                        <li>Delivered prototype with over 90% accuracy in predictions.</li>
+                    </ul>
+                </div>
+                <div class="project-footer">
+                    <!-- <a href="#" class="project-link" style="color: #14b8a6;">View Code <i class="fas fa-arrow-right"></i></a> -->
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Call to Action -->
+        <section class="reveal" style="text-align: center; padding: 4rem 0;">
+            <h2 style="margin-bottom: 1.5rem;">Let's work together</h2>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2.5rem auto;">
+                Interested in collaborating on a project or discussing data analytics? I'd love to hear from you.
+            </p>
+            <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 class="text-gradient" style="margin-bottom: 0.5rem;">Vaibhav Anand</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">Aspiring Data Analyst</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:vaibhavkumaranand729@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.8rem;">&copy; 2024 Vaibhav Anand. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
